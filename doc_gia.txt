@@ -1,0 +1,23 @@
+1010|Nguyen|An|Nam|1
+S001,1,7,2024,0,0,0,0,Ke A1
+S002,5,7,2024,0,0,0,0,Ke B2
+#END_MT
+1005|Le|Binh|Nu|1
+S003,2,7,2024,0,0,0,0,Ke C3
+#END_MT
+1004|Le|Binh|Nu|1
+S004,2,7,2024,0,0,0,0,Ke C3
+#END_MT
+512|Dao|Huyen|Nu|0
+#END_MT
+256|Phan Quang|Quy|Nam|0
+#END_MT
+1006|Le|Binh|Nu|1
+S005,2,7,2024,0,0,0,0,Ke C3
+#END_MT
+1015|Tran|Cuong|Nam|0
+#END_MT
+1012|Tran|Cuong|Nam|0
+#END_MT
+1017|Tran|Cuong|Nam|0
+#END_MT
