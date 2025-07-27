@@ -3,6 +3,7 @@
 
 void insertLastMT(PTRMT &first, MuonTra mt);
 void insertDG(PTRDG &root, DocGia dg);
-void inTieuDeDocGiaTheoMa();
-void inDocGiaTheoMa(PTRDG root);
-void nhapDocGia(PTRDG &root);
+void inTieuDeLietKeDocGia();
+void xuLyInDocGiaTheoMa(PTRDG root);
+void xuLyInDocGiaTheoTen(PTRDG root);
+void xuLyNhapDocGia(PTRDG &root);

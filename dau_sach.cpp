@@ -73,7 +73,7 @@ string _danhMaSachTuDong(DauSach &ds) {
     return ss.str();
 }
 
-void nhapDauSach(ListDauSach &lds) {
+void xuLyNhapDauSach(ListDauSach &lds) {
     if (isDauSachFull(lds)) {
         cout << "Danh sach dau sach da day!" << endl;
         return;
@@ -163,7 +163,7 @@ void _sapXepDauSachTheoTheLoai(ListDauSach &lds, DauSach* nodesSapXep[]) {
 		nodesSapXep[i] = &lds.nodes[i];
 	}
 
-	// Su dung selection sort 
+	// Selection sort 
 	for (int i = 0; i < lds.n; i++) {
 		for (int j = i + 1; j < lds.n; j++) {
 			if(nodesSapXep[j]->theLoai < nodesSapXep[i]->theLoai) {
@@ -178,7 +178,7 @@ void _sapXepDauSachTheoTheLoai(ListDauSach &lds, DauSach* nodesSapXep[]) {
 	}
 }
 
-void inDauSachTheoTheLoai(ListDauSach &lds, DauSach* nodesSapXep[]) {
+void xuLyInDauSachTheoTheLoai(ListDauSach &lds, DauSach* nodesSapXep[]) {
     _sapXepDauSachTheoTheLoai(lds, nodesSapXep);
 
     cout << left

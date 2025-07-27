@@ -7,9 +7,9 @@ LeftChar=1
 Order=0,1,2,3,5,4,6,7,9,8
 Focused=0
 [Editor_0]
-CursorCol=32
-CursorRow=139
-TopLine=170
+CursorCol=45
+CursorRow=127
+TopLine=115
 LeftChar=1
 [Editor_1]
 CursorCol=38

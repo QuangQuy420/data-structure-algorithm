@@ -39,7 +39,7 @@ void insertDG(PTRDG &root, DocGia dg) {
     }
 }
 
-void inTieuDeDocGiaTheoMa() {
+void inTieuDeLietKeDocGia() {
 	cout << left
          << setw(10) << "Ma The"
          << "| " << setw(15) << "Ho"
@@ -56,9 +56,9 @@ void inTieuDeDocGiaTheoMa() {
     cout << setfill(' ');
 }
 
-void inDocGiaTheoMa(PTRDG root) {
+void xuLyInDocGiaTheoMa(PTRDG root) {
 	if(root != NULL) {
-		inDocGiaTheoMa(root->left);
+		xuLyInDocGiaTheoMa(root->left);
 
 	    cout << left
 	         << setw(10) << root->dg.maThe
@@ -67,11 +67,11 @@ void inDocGiaTheoMa(PTRDG root) {
 	         << "| " << setw(5)  << root->dg.phai
 	         << "| " << setw(10) << root->dg.trangThai << endl;
 	
-	    inDocGiaTheoMa(root->right);
+	    xuLyInDocGiaTheoMa(root->right);
 	}
 }
 
-void nhapDocGia(PTRDG &root) {
+void xuLyNhapDocGia(PTRDG &root) {
 	DocGia dg;
 	
 	dg.maThe = layMaTheTuFile();
@@ -101,11 +101,72 @@ void nhapDocGia(PTRDG &root) {
     
     dg.trangThai = 0;
     dg.ptrMT = NULL;
-    
+
     insertDG(root, dg);
     saveMaTheFile();
-    
+
     cout << "\nThem doc gia thanh cong!" << endl;
+}
+
+int DemDocGia(PTRDG root) {
+    if (root == NULL) return 0;
+    return 1 + DemDocGia(root->left) + DemDocGia(root->right);
+}
+
+void _saveDocGiaVaoMang(DocGia* nodeSapXep[], PTRDG root, int &index) {
+	if(root != NULL) {
+		_saveDocGiaVaoMang(nodeSapXep, root->left, index);
+		nodeSapXep[index++] = &root->dg;
+		_saveDocGiaVaoMang(nodeSapXep, root->right, index);
+	}
+}
+
+int _soSanhDocGiaTheoTen(DocGia* a, DocGia* b) {
+	string tenA = a->ten + a->ho;
+	string tenB = b->ten + b->ho;
+	
+	return tenA < tenB;
+}
+
+void _sapXepDocGiaTheoTen(DocGia* nodeSapXep[], int n) {
+	DocGia* min;
+	int i, j, viTriMin;
+
+	for(i = 0; i < n-1; i++){
+		min = nodeSapXep[i];
+		viTriMin=i;
+
+	    for (j = i+1; j < n; j++) {
+	    	if (_soSanhDocGiaTheoTen(nodeSapXep[j], min)) {
+		    	min = nodeSapXep[j];
+				viTriMin=j;
+	        }	
+		}
+
+		nodeSapXep[viTriMin] = nodeSapXep[i];
+		nodeSapXep[i] = min;
+	}
+}
+
+void xuLyInDocGiaTheoTen(PTRDG root) {
+	int soLuongDG = DemDocGia(root);
+	if (soLuongDG == 0) return;
+
+	DocGia* nodeSapXep[soLuongDG];
+	
+	int index = 0;
+	_saveDocGiaVaoMang(nodeSapXep, root, index);
+	
+	_sapXepDocGiaTheoTen(nodeSapXep, soLuongDG);
+	
+	for(int i = 0; i < soLuongDG; i++){
+		cout << left
+	         << setw(10) << nodeSapXep[i]->maThe
+	         << "| " << setw(15) << nodeSapXep[i]->ho
+	         << "| " << setw(10) << nodeSapXep[i]->ten
+	         << "| " << setw(5)  << nodeSapXep[i]->phai
+	         << "| " << setw(10) << nodeSapXep[i]->trangThai << endl;
+	}
 }
 
 

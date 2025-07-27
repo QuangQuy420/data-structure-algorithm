@@ -127,13 +127,19 @@ int main() {
                     if (chon_dg == 8) break;
                     if (chon_dg == 1) {
                     	showTitleChucNang("Them Doc Gia", 1);
-						nhapDocGia(root);
+						xuLyNhapDocGia(root);
+						nhanPhimBatKyDeQuayLai();
+					}
+					if (chon_dg == 4) {
+                    	showTitleChucNang("Liet Ke Doc Gia Theo Ten", 0);
+                    	inTieuDeLietKeDocGia();
+						xuLyInDocGiaTheoTen(root);
 						nhanPhimBatKyDeQuayLai();
 					}
                     if (chon_dg == 5) {
-                    	showTitleChucNang("In Doc Gia Theo Ma", 0);
-                    	inTieuDeDocGiaTheoMa();
-						inDocGiaTheoMa(root);
+                    	showTitleChucNang("Liet Ke Doc Gia Theo Ma", 0);
+                    	inTieuDeLietKeDocGia();
+						xuLyInDocGiaTheoMa(root);
 						nhanPhimBatKyDeQuayLai();
 					}
                 } while (true);
@@ -149,7 +155,7 @@ int main() {
                     if (chon_ds == 5) break;
                     if (chon_ds == 1) {
                     	showTitleChucNang("Them Dau Sach", 1);
-						nhapDauSach(lds);
+						xuLyNhapDauSach(lds);
 						nhanPhimBatKyDeQuayLai();
 					}
                     if (chon_ds == 2) {
@@ -157,7 +163,7 @@ int main() {
                     	// Khai bao mang con tro de sap xep
                     	DauSach* nodesSapXep[MAXLIST];
 
-						inDauSachTheoTheLoai(lds, nodesSapXep);
+						xuLyInDauSachTheoTheLoai(lds, nodesSapXep);
                         nhanPhimBatKyDeQuayLai();
 					}
 					if (chon_ds == 3) {
