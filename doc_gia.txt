@@ -12,6 +12,10 @@ S004,2,7,2024,0,0,0,0,Ke C3
 #END_MT
 256|Phan Quang|Quy|Nam|0
 #END_MT
+128|Dao Tang K|Huyennnn|Nam|0
+#END_MT
+896|Phan|Quy|Nu|0
+#END_MT
 1006|Le|Binh|Nu|1
 S005,2,7,2024,0,0,0,0,Ke C3
 #END_MT

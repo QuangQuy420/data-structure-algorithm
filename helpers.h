@@ -1,9 +1,12 @@
 #pragma once
 
 string chuanHoaChuoi(const string &str);
-void nhapChuoi(string &s, int maxLen);
-void nhapSo(int &so, int minVal = INT_MIN, int maxVal = INT_MAX);
-void nhapMaISBN(ListDauSach &lds, string &s, int maxLen);
-void chonTheLoai(string &theLoai);
-void chonPhai(string &phai);
+bool nhapChuoi(string &s, int maxLen);
+bool nhapSo(int &so, int minVal, int maxVal, int maxLen);
+bool nhapMaISBN(ListDauSach &lds, string &s, int maxLen);
+bool chonTheLoai(string &theLoai);
+bool chonPhai(string &phai);
 string chuanHoaInHoa(string s);
+void showTitleChucNang(string chucNang, int esc);
+void nhanPhimBatKyDeQuayLai();
+void thongBaoHuyThaoTac(string thaoTac);

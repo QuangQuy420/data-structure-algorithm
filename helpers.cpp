@@ -3,6 +3,9 @@
 #include <cstring>
 #include <cctype>
 #include <algorithm>
+#include <conio.h>
+#include <thread>
+#include <chrono>
 #include "structs.h"
 
 using namespace std;
@@ -36,61 +39,68 @@ string chuanHoaChuoi(const string &str) {
     return res;
 }
 
-void nhapChuoi(string &s, int maxLen) {
-    do {
-        getline(cin, s);
-        s = chuanHoaChuoi(s);
+bool nhapChuoi(string &s, int maxLen) {
+    s.clear();
 
-        if ((int)s.length() > maxLen) {
-            cout << "Chi duoc nhap toi da " << maxLen << " ky tu. Vui long nhap lai: ";
+    char ch;
+    while (true) {
+        ch = getch();
+
+        if (ch == 13) break;            // Enter ket thuc nhap
+        if (ch == 27) return false;		// ESC huy
+
+        if (ch == 8) { // Backspace
+            if (!s.empty()) {
+                cout << "\b \b"; // Dat lai con tro sau khi xoa
+                s.pop_back();
+            }
         }
-    } while ((int)s.length() > maxLen);
+        else if (isprint(ch) && s.length() < maxLen) {
+            cout << ch;
+            s += ch;
+        }
+    }
+
+    cout << endl;
+    s = chuanHoaChuoi(s);
+    return true;
 }
 
-void nhapSo(int &so, int minVal = INT_MIN, int maxVal = INT_MAX) {
-    string input;
-    bool valid = false;
+bool nhapSo(int &so, int minVal, int maxVal, int maxLen) {
+    string s;
+    char ch;
 
-    do {
-        getline(cin, input);
+    while (true) {
+        ch = getch();
 
-        // Trim d?u và cu?i
-        while (!input.empty() && input.front() == ' ') input.erase(input.begin());
-        while (!input.empty() && input.back() == ' ') input.pop_back();
-
-        // Kiem tra chuoi khong rong va chi co cac ky tu hop le
-        if (!input.empty()) {
-            // D?u '-' ch? du?c phép d?ng d?u
-            size_t startIdx = 0;
-            if (input[0] == '-') {
-                startIdx = 1;
-            }
-
-            // Ki?m tra t? startIdx tr? di ph?i toàn s?
-            bool allDigits = true;
-            for (size_t i = startIdx; i < input.length(); i++) {
-                if (!isdigit(input[i])) {
-                    allDigits = false;
-                    break;
-                }
-            }
-
-            if (allDigits) {
-                so = stoi(input);
-                if (so < minVal || so > maxVal) {
-                    cout << "So phai nam trong [" << minVal << ", " << maxVal << "]. Nhap lai: ";
-                    valid = false;
+        if (ch == 13) { // Enter
+            if (!s.empty()) {
+                so = stoi(s);
+                if (so >= minVal && so <= maxVal) {
+                    cout << endl;
+                    return true;
                 } else {
-                    valid = true;
+                    cout << "\nSo phai nam trong [" << minVal << ", " << maxVal << "]. Nhap lai: ";
+                    s.clear();
                 }
             } else {
-                cout << "Chi duoc nhap so nguyen. Nhap lai: ";
+                cout << "\nKhong duoc de trong. Nhap lai: ";
             }
-        } else {
-            cout << "Khong duoc de trong. Nhap lai: ";
         }
-
-    } while (!valid);
+        else if (ch == 27) return false;
+        else if (ch == 8) { // Backspace
+            if (!s.empty()) {
+                cout << "\b \b";
+                s.pop_back();
+            }
+        }
+        else if (ch >= '0' && ch <= '9') {
+            if (s.length() < maxLen) {
+                cout << ch;
+                s += ch;
+            }
+        }
+    }
 }
 
 int kiemTraTonTaiISBN(ListDauSach &lds, string ISBN) {
@@ -102,43 +112,48 @@ int kiemTraTonTaiISBN(ListDauSach &lds, string ISBN) {
 	return -1;
 }
 
-void nhapMaISBN(ListDauSach &lds, string &s, int maxLen) {
-	int existISBN = -1;
-    do {
-        getline(cin, s);
+bool nhapMaISBN(ListDauSach &lds, string &s, int maxLen) {
+    s.clear();
+    char ch;
 
-        // Xóa khoang trang
-        s.erase(remove(s.begin(), s.end(), ' '), s.end());
+    while (true) {
+        ch = getch();
 
-        // Chuyen thanh chu hoa
-        for (char &c : s) {
-            c = toupper(c);
+        if (ch == 27) return false; // ESC -> h?y
+        if (ch == 13) { // Enter
+            if (s.length() != maxLen) {
+                cout << "\nMa ISBN phai co dung " << maxLen << " ky tu. Nhap lai: ";
+                s.clear();
+                continue;
+            }
+
+            if (kiemTraTonTaiISBN(lds, s) != -1) {
+                cout << "\nMa ISBN da ton tai. Nhap lai: ";
+                s.clear();
+                continue;
+            }
+
+            cout << endl;
+            return true;
         }
 
-        // Kiem tra do dai va chi chua chu cai
-        bool valid = true;
-        if ((int)s.length() != maxLen) {
-            valid = false;
-        } else {
-            for (char c : s) {
-                if (!isalpha(c)) {
-                    valid = false;
-                    break;
-                }
+        // Backspace
+        if (ch == 8) {
+            if (!s.empty()) {
+                cout << "\b \b";
+                s.pop_back();
             }
         }
-        
-        existISBN = kiemTraTonTaiISBN(lds, s);
 
-        if (!valid) {
-            cout << "Chi duoc nhap dung " << maxLen << " ky tu, khong khoang trang, chi chua chu cai. Vui long nhap lai: ";
-        } else if (existISBN != -1) {
-			cout << "Ma ISBN da ton tai, Vui long nhap lai: ";
-		}
-    } while ((int)s.length() != maxLen || !all_of(s.begin(), s.end(), ::isalpha) || existISBN != -1);
+        else if (isalpha(ch) && s.length() < maxLen) {
+            ch = toupper(ch);
+            cout << ch;
+            s += ch;
+        }
+    }
 }
 
-void chonTheLoai(string &theLoai) {
+bool chonTheLoai(string &theLoai) {
     int luaChon;
 
     cout << "Cac the loai duoc chon:\n";
@@ -149,7 +164,9 @@ void chonTheLoai(string &theLoai) {
     cout << "5. Ky nang\n";
     cout << "Nhap the loai (tu 1 den 5):";
 
-    nhapSo(luaChon, 1, 5);
+    if (!nhapSo(luaChon, 1, 5, 1)) {
+        return false;
+    }
 
     switch (luaChon) {
         case 1: theLoai = "Khoa hoc"; break;
@@ -158,9 +175,11 @@ void chonTheLoai(string &theLoai) {
         case 4: theLoai = "Thieu nhi"; break;
         case 5: theLoai = "Ky nang"; break;
     }
+    
+    return true;
 }
 
-void chonPhai(string &phai) {
+bool chonPhai(string &phai) {
     int luaChon;
 
     cout << "Cac phai co the chon:\n";
@@ -168,12 +187,16 @@ void chonPhai(string &phai) {
     cout << "2. Nu\n";
     cout << "Nhap phai (1 hoac 2):";
 
-    nhapSo(luaChon, 1, 2);
+    if (!nhapSo(luaChon, 1, 2, 1)) {
+        return false;
+    }
 
     switch (luaChon) {
         case 1: phai = "Nam"; break;
         case 2: phai = "Nu"; break;
     }
+    
+    return true;
 }
 
 string chuanHoaInHoa(string s) {
@@ -181,6 +204,24 @@ string chuanHoaInHoa(string s) {
     return s;
 }
 
+void showTitleChucNang(string chucNang, int esc) {
+	cout<<"Ban Dang Chon Chuc Nang "<<chucNang<<endl;
+	
+	if(esc)
+		cout<<"Nhan Phim ESC De Dung Thao Tac."<<endl;
+
+	cout<<endl;
+}
+
+void nhanPhimBatKyDeQuayLai() {
+	cout<<endl;
+	cout<<"Nhan Phim Bat Ky De Quay Lai Menu..."<<endl;
+	getch();
+}
+
+void thongBaoHuyThaoTac(string thaoTac) {
+	cout<<"\n\nDa Huy Thao Tac "<<thaoTac<<endl;
+}
 
 
 

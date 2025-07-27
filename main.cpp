@@ -5,6 +5,7 @@
 #include "doc_ghi_file.h"
 #include "dau_sach.h"
 #include "doc_gia.h"
+#include "helpers.h"
 
 #define MAXLIST 10000
 
@@ -125,16 +126,16 @@ int main() {
                     system("cls");
                     if (chon_dg == 8) break;
                     if (chon_dg == 1) {
+                    	showTitleChucNang("Them Doc Gia", 1);
 						nhapDocGia(root);
-						getch();
+						nhanPhimBatKyDeQuayLai();
 					}
                     if (chon_dg == 5) {
+                    	showTitleChucNang("In Doc Gia Theo Ma", 0);
                     	inTieuDeDocGiaTheoMa();
 						inDocGiaTheoMa(root);
+						nhanPhimBatKyDeQuayLai();
 					}
-                    cout << "Ban da chon muc: " << docgia[chon_dg - 1] << endl;
-                    cout << "Nhan phim bat ky de tiep tuc...";
-                    getch();
                 } while (true);
                 break;
             }
@@ -147,37 +148,36 @@ int main() {
                     system("cls");
                     if (chon_ds == 5) break;
                     if (chon_ds == 1) {
-                    	nhapDauSach(lds);
-                    	getch();
+                    	showTitleChucNang("Them Dau Sach", 1);
+						nhapDauSach(lds);
+						nhanPhimBatKyDeQuayLai();
 					}
                     if (chon_ds == 2) {
+                    	showTitleChucNang("Liet Ke Dau Sach Theo The Loai", 0);
                     	// Khai bao mang con tro de sap xep
                     	DauSach* nodesSapXep[MAXLIST];
 
 						inDauSachTheoTheLoai(lds, nodesSapXep);
-                        cout << "Nhan phim bat ky de tiep tuc...";
-                        getch();
+                        nhanPhimBatKyDeQuayLai();
 					}
 					if (chon_ds == 3) {
+						showTitleChucNang("Tim Sach", 1);
 						timSach(lds);
-                        cout << "Nhan phim bat ky de tiep tuc...";
-                        getch();
+                        nhanPhimBatKyDeQuayLai();
 					}
                 } while (true);
                 break;
             }
 
             case 3: {
-                cout << "Dang phat trien chuc nang Muon Sach...\n";
-                cout << "Nhan phim bat ky de tro ve menu chinh...";
-                getch();
+                showTitleChucNang("Muon Sach", 0);
+                nhanPhimBatKyDeQuayLai();
                 break;
             }
             
             case 4: {
-                cout << "Dang phat trien chuc nang Tra Sach...\n";
-                cout << "Nhan phim bat ky de tro ve menu chinh...";
-                getch();
+                showTitleChucNang("Tra Sach", 0);
+                nhanPhimBatKyDeQuayLai();
                 break;
             }
             case so_item : {

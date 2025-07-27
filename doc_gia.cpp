@@ -76,18 +76,28 @@ void nhapDocGia(PTRDG &root) {
 	
 	dg.maThe = layMaTheTuFile();
 	if (dg.maThe == -1) {
-        cout << "Khong the lay ma the! Huy thao tac nhap doc gia." << endl;
+        cout << "Khong the lay ma the!"<< endl;
+        thongBaoHuyThaoTac("Them Doc Gia");
         return;
     }
 	
-	cout << "Nhap ho doc gia (toi da 10 ki tu): ";
-    nhapChuoi(dg.ho, 10);
-    
+    cout << "Nhap ho doc gia (toi da 10 ki tu): ";
+    if (!nhapChuoi(dg.ho, 10)) {
+        thongBaoHuyThaoTac("Them Doc Gia");
+        return;
+    }
+
     cout << "Nhap ten doc gia (toi da 10 ki tu): ";
-    nhapChuoi(dg.ten, 10);
-    
-    cout << "Nhap phai doc gia (toi da 10 ki tu): ";
-    chonPhai(dg.phai);
+    if (!nhapChuoi(dg.ten, 10)) {
+        thongBaoHuyThaoTac("Them Doc Gia");
+        return;
+    }
+
+    cout << "Nhap phai doc gia: ";
+    if (!chonPhai(dg.phai)) {
+        thongBaoHuyThaoTac("Them Doc Gia");
+        return;
+    }
     
     dg.trangThai = 0;
     dg.ptrMT = NULL;
@@ -95,7 +105,7 @@ void nhapDocGia(PTRDG &root) {
     insertDG(root, dg);
     saveMaTheFile();
     
-    cout << "Them doc gia thanh cong!" << endl;
+    cout << "\nThem doc gia thanh cong!" << endl;
 }
 
 

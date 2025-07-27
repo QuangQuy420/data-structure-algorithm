@@ -82,21 +82,40 @@ void nhapDauSach(ListDauSach &lds) {
     DauSach ds;
     
     cout << "Nhap ma ISBN (toi da 4 ki tu): ";
-    nhapMaISBN(lds, ds.ISBN, 4);
+    if (!nhapMaISBN(lds, ds.ISBN, 4)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     cout << "Nhap ten sach (toi da 50 ki tu): ";
-    nhapChuoi(ds.tenSach, 50);
+    if (!nhapChuoi(ds.tenSach, 50)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     cout << "Nhap so trang (tu 1 den 100000):";
-    nhapSo(ds.soTrang, 1, 100000);
+    if (!nhapSo(ds.soTrang, 1, 100000, 6)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     cout << "Nhap tac gia (toi da 50 ki tu): ";
-    nhapChuoi(ds.tacGia, 50);
+	if (!nhapChuoi(ds.tacGia, 50)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     cout << "Nhap nam xuat ban (tu 1000 toi 2025): ";
-    nhapSo(ds.namXuatBan, 1000, 2025);
+    if (!nhapSo(ds.namXuatBan, 1000, 2025, 4)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
-    chonTheLoai(ds.theLoai);
+	cout<<"Chon the loai dau sach: ";
+	if (!chonTheLoai(ds.theLoai)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     ds.soLuotMuon = 0;
     ds.ptrSach = NULL;
@@ -104,11 +123,17 @@ void nhapDauSach(ListDauSach &lds) {
     // Nhap danh sach cac cuon sach con
     int soCuon;
     cout << "Nhap so cuon sach con (tu 1 toi 10000): ";
-    nhapSo(soCuon, 1, 10000);
+    if (!nhapSo(soCuon, 1, 10000, 5)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     string viTriSachCon;
     cout << "Nhap vi tri cho tat ca sach con (toi da 20 ki tu): ";
-    nhapChuoi(viTriSachCon, 20);
+	if (!nhapChuoi(viTriSachCon, 20)) {
+        thongBaoHuyThaoTac("Nhap Dau Sach");
+        return;
+    }
 
     for (int i = 0; i < soCuon; i++) {
         Sach sach;
@@ -122,7 +147,7 @@ void nhapDauSach(ListDauSach &lds) {
     // Them dau sach vao danh sach
     insertAfterDS(lds, ds);
 
-    cout << "Nhap dau sach thanh cong!" << endl;
+    cout << "\nNhap dau sach thanh cong!" << endl;
 }
 
 void _swapDauSach(DauSach* &x, DauSach* &y) {
