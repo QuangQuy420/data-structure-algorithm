@@ -6,8 +6,11 @@
 #include "doc_gia.h"
 #include "helpers.h"
 #include "doc_ghi_file.h"
+#include "mylib.h"
 
 using namespace std;
+
+const int itemMoiTrang = 15;
 
 void insertLastMT(PTRMT &first, MuonTra mt) {
 	PTRMT newMT = new nodeMT;
@@ -39,73 +42,33 @@ void insertDG(PTRDG &root, DocGia dg) {
     }
 }
 
-void inTieuDeLietKeDocGia() {
-	cout << left
-         << setw(10) << "Ma The"
-         << "| " << setw(15) << "Ho"
-         << "| " << setw(10) << "Ten"
-         << "| " << setw(5)  << "Phai"
-         << "| " << setw(10) << "Trang Thai" << endl;
-
-    cout << setfill('-')
-         << setw(10) << ""
-         << "+-" << setw(15) << ""
-         << "+-" << setw(10) << ""
-         << "+-" << setw(5)  << ""
-         << "+-" << setw(10) << "" << endl;
-    cout << setfill(' ');
-}
-
-void xuLyInDocGiaTheoMa(PTRDG root) {
-	if(root != NULL) {
-		xuLyInDocGiaTheoMa(root->left);
-
-	    cout << left
-	         << setw(10) << root->dg.maThe
-	         << "| " << setw(15) << root->dg.ho
-	         << "| " << setw(10) << root->dg.ten
-	         << "| " << setw(5)  << root->dg.phai
-	         << "| " << setw(10) << root->dg.trangThai << endl;
-	
-	    xuLyInDocGiaTheoMa(root->right);
-	}
-}
-
 void xuLyNhapDocGia(PTRDG &root) {
 	DocGia dg;
+	int x = 80, y = 3;
+	gotoxy(x, y);
+	cout<<"-----THEM DOC GIA-----"<<endl;
 	
 	dg.maThe = layMaTheTuFile();
 	if (dg.maThe == -1) {
-        cout << "Khong the lay ma the!"<< endl;
-        thongBaoHuyThaoTac("Them Doc Gia");
-        return;
-    }
-	
-    cout << "Nhap ho doc gia (toi da 10 ki tu): ";
-    if (!nhapChuoi(dg.ho, 10)) {
-        thongBaoHuyThaoTac("Them Doc Gia");
+        thongBao(0, "Khong the lay ma the!", 80, 24);
+        Sleep(3000);
+        clearTinhNang(80, 0);
         return;
     }
 
-    cout << "Nhap ten doc gia (toi da 10 ki tu): ";
-    if (!nhapChuoi(dg.ten, 10)) {
-        thongBaoHuyThaoTac("Them Doc Gia");
-        return;
-    }
-
-    cout << "Nhap phai doc gia: ";
-    if (!chonPhai(dg.phai)) {
-        thongBaoHuyThaoTac("Them Doc Gia");
-        return;
-    }
+    if (!nhapHoDocGia(dg.ho)) return;
+    if (!nhapTenDocGia(dg.ten)) return;
+    if (!nhapPhaiDocGia(dg.phai)) return;
     
-    dg.trangThai = 0;
+    dg.trangThai = 1;
     dg.ptrMT = NULL;
 
     insertDG(root, dg);
     saveMaTheFile();
 
-    cout << "\nThem doc gia thanh cong!" << endl;
+    thongBao(1, "Them Doc Gia Thanh Cong!", 80, 24);
+    Sleep(3000);
+    clearTinhNang(80, 0);
 }
 
 int DemDocGia(PTRDG root) {
@@ -161,12 +124,94 @@ void xuLyInDocGiaTheoTen(PTRDG root) {
 	
 	for(int i = 0; i < soLuongDG; i++){
 		cout << left
-	         << setw(10) << nodeSapXep[i]->maThe
+			 << setw(8) << i + 1
+	         << "| " << setw(10) << nodeSapXep[i]->maThe
 	         << "| " << setw(15) << nodeSapXep[i]->ho
 	         << "| " << setw(10) << nodeSapXep[i]->ten
 	         << "| " << setw(5)  << nodeSapXep[i]->phai
 	         << "| " << setw(10) << nodeSapXep[i]->trangThai << endl;
 	}
+}
+
+int tinhSoTrang(PTRDG root) {
+	if(root == NULL) return 0;
+
+	int soDocGia = DemDocGia(root);
+	return (soDocGia + itemMoiTrang - 1) / itemMoiTrang;
+}
+
+void _inTinhNangThaoTac() {
+	cout << "-----------------------------------------------------------------------" << endl;
+    cout << "F1: Them | F2: Xoa | F3: Sua | F4: Muon Sach | F5: Tra sach | ESC: Thoat" << endl;
+    cout << "< | > : Chuyen Trang"<<endl;
+}
+
+void _inTieuDeLietKeDocGia() {
+	cout << left
+	     << setw(6) << "STT"
+         << "| " << setw(6) << "Ma The"
+         << "| " << setw(30) << "Ho Va Ten"
+         << "| " << setw(5)  << "Phai"
+         << "| " << setw(10) << "Trang Thai" << endl;
+
+    cout << setfill('-')
+    	 << setw(6) << ""
+         << "+-" << setw(6) << ""
+         << "+-" << setw(30) << ""
+         << "+-" << setw(5)  << ""
+         << "+-" << setw(10) << "" << endl;
+    cout << setfill(' ');
+}
+
+void _inDocGiaTheoMa(PTRDG root, int &index, int trang, int &y) {
+	if(root != NULL) {
+		_inDocGiaTheoMa(root->left, index, trang, y);
+
+		if(index > (trang - 1)*itemMoiTrang && index <= trang*itemMoiTrang) {
+			gotoxy(0, y++);
+			string trangThaiThe = root->dg.trangThai == 1 ? "Hoat Dong" : "Da Bi Khoa";
+			string phai = root->dg.phai == 0 ? "Nam" : "Nu";
+			cout << left
+	         << setw(6) << index
+	         << "| " << setw(6) << root->dg.maThe
+	         << "| " << setw(30) << root->dg.ho +  " " + root->dg.ten
+	         << "| " << setw(5)  << phai
+	         << "| " << setw(10) << trangThaiThe << endl;
+		}
+		index++;
+	
+	    _inDocGiaTheoMa(root->right, index, trang, y);
+	}
+}
+
+void inKhungQuanLyDocGia() {
+	gotoxy(15, 1);
+	cout << "----------QUAN LI THE DOC GIA----------";
+
+	gotoxy(0, 3);
+	_inTieuDeLietKeDocGia(); // In dong tieu de
+
+	gotoxy(0, 24);
+	_inTinhNangThaoTac();    // In dong chuc nang
+}
+
+void _clearVungDanhSachDocGia() {
+	for (int y = 5; y <= 5 + itemMoiTrang; y++) {
+		gotoxy(0, y);
+		cout << string(80, ' ');  // Xoá 80 ky tu
+	}
+}
+
+void xuLyInDanhSachDocGia(PTRDG root, int trang, int soTrang) {
+	_clearVungDanhSachDocGia();
+	
+	int index = 1;
+	int y = 5; // Bat dau in tu dong thu 5
+	
+	_inDocGiaTheoMa(root, index, trang, y);
+	
+	gotoxy(55, 21);
+	cout << "Trang: " << trang << "/" << soTrang;
 }
 
 

@@ -73,7 +73,7 @@ struct DocGia
     int maThe; // So nguyen ngau nhien tu dong
     string ho;
     string ten;
-    string phai;
+    int phai;
     int trangThai; // 0: da khoa, 1: dang hoat dong
     PTRMT ptrMT = NULL; // Con tro den danh sach muon tra cua doc gia
 };

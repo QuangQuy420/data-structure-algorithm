@@ -15,39 +15,27 @@ const char* dau_sach_file = "D:\\CTDLGT\\Do_An\\dau_sach.txt";
 const char* doc_gia_file = "D:\\CTDLGT\\Do_An\\doc_gia.txt";
 
 
-const int so_item = 5;
+const int so_item = 3;
 const int dong = 5;
 const int cot = 20;
-const int Up = 72;
-const int Down = 80;
-const int Enter = 13;
+const int KEY_UP = 72;
+const int KEY_DOWN = 80;
+const int KEY_LEFT = 75;
+const int KEY_RIGHT = 77;
+const int KEY_ENTER = 13;
+
+const int KEY_F1 = 59;
+const int KEY_F2 = 60;
+const int KEY_F3 = 61;
+const int KEY_F4 = 62;
+const int KEY_F5 = 63;
+const int KEY_ESC = 27;
 
 // Khai báo menu
-char menu[5][50] = {
-    "1. The Doc Gia       ",
-    "2. Dau Sach          ",
-    "3. Muon Sach         ",
-    "4. Tra Sach          ",
-    "5. Thoat Chuong Trinh",
-};
-
-char docgia[8][50] = {
-    "1. Nhap danh sach doc gia           ",
-    "2. Chinh sua doc gia theo ma        ",
-    "3. Xoa doc gia theo ma              ",
-    "4. Liet ke doc gia theo ten         ",
-    "5. Liet ke doc gia theo ma          ",
-    "6. Liet ke sach doc gia dang muon   ",
-    "7. Liet ke doc gia muon sach qua han",
-    "8. Tro lai                          "
-};
-
-char dausach[5][50] = {
-    "1. Nhap thong tin dau sach        ",
-    "2. Liet ke dau sach theo the loai ",
-    "3. Tim kiem sach theo ten         ",
-    "4. Liet ke 10 sach muon nhieu nhat",
-    "5. Tro lai                        "
+char menu[3][50] = {
+    "1. Quan Ly The Doc Gia       ",
+    "2. Quan Ly Dau Sach          ",
+    "3. Thoat Chuong Trinh        ",
 };
 
 void Normal() {
@@ -77,7 +65,7 @@ int MenuDong(char td[][50], int so_item) {
         kytu = getch();
         if (kytu == 0) kytu = getch();
         switch (kytu) {
-            case Up:
+            case KEY_UP:
                 if (chon > 0) {
                     Normal();
                     gotoxy(cot, dong + chon);
@@ -88,7 +76,7 @@ int MenuDong(char td[][50], int so_item) {
                     cout << td[chon];
                 }
                 break;
-            case Down:
+            case KEY_DOWN:
                 if (chon < so_item - 1) {
                     Normal();
                     gotoxy(cot, dong + chon);
@@ -99,7 +87,7 @@ int MenuDong(char td[][50], int so_item) {
                     cout << td[chon];
                 }
                 break;
-            case Enter:
+            case KEY_ENTER:
                 return chon + 1;
         }
     } while (true);
@@ -112,81 +100,62 @@ int main() {
 	loadDauSach(dau_sach_file, lds);
 	loadDocGia(doc_gia_file, root);
 
-    int chon;
+    int chon, key, trang;
+    bool canReprint = true;
     do {
-        chon = MenuDong(menu, 5);
+        chon = MenuDong(menu, 3);
         Normal();
         system("cls");
         switch (chon) {
             case 1: { // The doc gia
-                int chon_dg;
-                do {
-                    chon_dg = MenuDong(docgia, 8);
-                    Normal();
-                    system("cls");
-                    if (chon_dg == 8) break;
-                    if (chon_dg == 1) {
-                    	showTitleChucNang("Them Doc Gia", 1);
-						xuLyNhapDocGia(root);
-						nhanPhimBatKyDeQuayLai();
+            	trang = 1;
+            	int soTrang = tinhSoTrang(root);
+            	inKhungQuanLyDocGia();
+
+            	do {
+            		if (canReprint) {
+            			soTrang = tinhSoTrang(root);
+						xuLyInDanhSachDocGia(root, trang, soTrang);
+						canReprint = false;
 					}
-					if (chon_dg == 4) {
-                    	showTitleChucNang("Liet Ke Doc Gia Theo Ten", 0);
-                    	inTieuDeLietKeDocGia();
-						xuLyInDocGiaTheoTen(root);
-						nhanPhimBatKyDeQuayLai();
-					}
-                    if (chon_dg == 5) {
-                    	showTitleChucNang("Liet Ke Doc Gia Theo Ma", 0);
-                    	inTieuDeLietKeDocGia();
-						xuLyInDocGiaTheoMa(root);
-						nhanPhimBatKyDeQuayLai();
-					}
-                } while (true);
-                break;
+
+	            	key = getch();
+			        switch (key) {
+			            case KEY_F1:
+			            	xuLyNhapDocGia(root);
+			            	canReprint = true;
+			                break;
+			            case KEY_F2:
+			                break;
+			            case KEY_F3:
+			                break;
+			            case KEY_F4:
+			                break;
+			            case KEY_F5:
+			                break;
+			            case KEY_LEFT:
+			            	if(trang > 1) {
+								trang--;
+			            		canReprint = true;
+							}
+			            	break;
+			            case KEY_RIGHT:
+			            	if(trang < soTrang) {
+								trang++;
+			            		canReprint = true;
+							}
+			            	break;
+			            case KEY_ESC:
+			            	canReprint = true;
+			        }
+				} while (key != KEY_ESC);
+            	break;
             }
 
             case 2: { // Dau sach
-                int chon_ds;
-                do {
-                    chon_ds = MenuDong(dausach, 5);
-                    Normal();
-                    system("cls");
-                    if (chon_ds == 5) break;
-                    if (chon_ds == 1) {
-                    	showTitleChucNang("Them Dau Sach", 1);
-						xuLyNhapDauSach(lds);
-						nhanPhimBatKyDeQuayLai();
-					}
-                    if (chon_ds == 2) {
-                    	showTitleChucNang("Liet Ke Dau Sach Theo The Loai", 0);
-                    	// Khai bao mang con tro de sap xep
-                    	DauSach* nodesSapXep[MAXLIST];
-
-						xuLyInDauSachTheoTheLoai(lds, nodesSapXep);
-                        nhanPhimBatKyDeQuayLai();
-					}
-					if (chon_ds == 3) {
-						showTitleChucNang("Tim Sach", 1);
-						timSach(lds);
-                        nhanPhimBatKyDeQuayLai();
-					}
-                } while (true);
                 break;
             }
-
-            case 3: {
-                showTitleChucNang("Muon Sach", 0);
-                nhanPhimBatKyDeQuayLai();
-                break;
-            }
-            
-            case 4: {
-                showTitleChucNang("Tra Sach", 0);
-                nhanPhimBatKyDeQuayLai();
-                break;
-            }
-            case so_item : {
+            case so_item: {
             	saveDauSach(dau_sach_file, lds);
             	saveDocGia(doc_gia_file, root);
     			return 0;

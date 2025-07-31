@@ -74,80 +74,80 @@ string _danhMaSachTuDong(DauSach &ds) {
 }
 
 void xuLyNhapDauSach(ListDauSach &lds) {
-    if (isDauSachFull(lds)) {
-        cout << "Danh sach dau sach da day!" << endl;
-        return;
-    }
-
-    DauSach ds;
-    
-    cout << "Nhap ma ISBN (toi da 4 ki tu): ";
-    if (!nhapMaISBN(lds, ds.ISBN, 4)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    cout << "Nhap ten sach (toi da 50 ki tu): ";
-    if (!nhapChuoi(ds.tenSach, 50)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    cout << "Nhap so trang (tu 1 den 100000):";
-    if (!nhapSo(ds.soTrang, 1, 100000, 6)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    cout << "Nhap tac gia (toi da 50 ki tu): ";
-	if (!nhapChuoi(ds.tacGia, 50)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    cout << "Nhap nam xuat ban (tu 1000 toi 2025): ";
-    if (!nhapSo(ds.namXuatBan, 1000, 2025, 4)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-	cout<<"Chon the loai dau sach: ";
-	if (!chonTheLoai(ds.theLoai)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    ds.soLuotMuon = 0;
-    ds.ptrSach = NULL;
-
-    // Nhap danh sach cac cuon sach con
-    int soCuon;
-    cout << "Nhap so cuon sach con (tu 1 toi 10000): ";
-    if (!nhapSo(soCuon, 1, 10000, 5)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    string viTriSachCon;
-    cout << "Nhap vi tri cho tat ca sach con (toi da 20 ki tu): ";
-	if (!nhapChuoi(viTriSachCon, 20)) {
-        thongBaoHuyThaoTac("Nhap Dau Sach");
-        return;
-    }
-
-    for (int i = 0; i < soCuon; i++) {
-        Sach sach;
-        sach.maSach = _danhMaSachTuDong(ds);
-		sach.trangThai = 0;
-		sach.viTri = viTriSachCon;
-
-        insertLastSach(ds.ptrSach, sach);
-    }
-
-    // Them dau sach vao danh sach
-    insertAfterDS(lds, ds);
-
-    cout << "\nNhap dau sach thanh cong!" << endl;
+//    if (isDauSachFull(lds)) {
+//        cout << "Danh sach dau sach da day!" << endl;
+//        return;
+//    }
+//
+//    DauSach ds;
+//    
+//    cout << "Nhap ma ISBN (toi da 4 ki tu): ";
+//    if (!nhapMaISBN(lds, ds.ISBN, 4)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    cout << "Nhap ten sach (toi da 50 ki tu): ";
+//    if (!nhapChuoi(ds.tenSach, 50)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    cout << "Nhap so trang (tu 1 den 100000):";
+//    if (!nhapSo(ds.soTrang, 1, 100000, 6)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    cout << "Nhap tac gia (toi da 50 ki tu): ";
+//	if (!nhapChuoi(ds.tacGia, 50)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    cout << "Nhap nam xuat ban (tu 1000 toi 2025): ";
+//    if (!nhapSo(ds.namXuatBan, 1000, 2025, 4)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//	cout<<"Chon the loai dau sach: ";
+//	if (!chonTheLoai(ds.theLoai)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    ds.soLuotMuon = 0;
+//    ds.ptrSach = NULL;
+//
+//    // Nhap danh sach cac cuon sach con
+//    int soCuon;
+//    cout << "Nhap so cuon sach con (tu 1 toi 10000): ";
+//    if (!nhapSo(soCuon, 1, 10000, 5)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    string viTriSachCon;
+//    cout << "Nhap vi tri cho tat ca sach con (toi da 20 ki tu): ";
+//	if (!nhapChuoi(viTriSachCon, 20)) {
+//        thongBaoHuyThaoTac("Nhap Dau Sach");
+//        return;
+//    }
+//
+//    for (int i = 0; i < soCuon; i++) {
+//        Sach sach;
+//        sach.maSach = _danhMaSachTuDong(ds);
+//		sach.trangThai = 0;
+//		sach.viTri = viTriSachCon;
+//
+//        insertLastSach(ds.ptrSach, sach);
+//    }
+//
+//    // Them dau sach vao danh sach
+//    insertAfterDS(lds, ds);
+//
+//    cout << "\nNhap dau sach thanh cong!" << endl;
 }
 
 void _swapDauSach(DauSach* &x, DauSach* &y) {

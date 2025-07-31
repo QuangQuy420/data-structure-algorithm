@@ -204,7 +204,9 @@ void loadDocGia(const char* fileName, PTRDG &root) {
 
         getline(ss, dg.ho, '|');
         getline(ss, dg.ten, '|');
-        getline(ss, dg.phai, '|');
+        
+        getline(ss, token, '|');
+        dg.phai = stoi(token);
 
         getline(ss, token, '|');
         dg.trangThai = token.empty() ? 0 : stoi(token);
