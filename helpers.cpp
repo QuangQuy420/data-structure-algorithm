@@ -9,6 +9,7 @@
 #include <iomanip>
 #include "structs.h"
 #include "mylib.h"
+#include "globals.h"
 
 using namespace std;
 
@@ -230,18 +231,14 @@ void clearBaoLoi(int x, int y) {
 bool nhapHoDocGia(string &ho) {
     const int x = 80, y = 5;
     int ketQuaNhap = 0;
-
-    gotoxy(x, y);
-    cout << "Nhap Ho (toi da 20 ky tu): ";
     
     gotoxy(x, 22);
     cout << "ESC: Huy Tinh Nang Nhap";
     
-    gotoxy(x, y + 1);
     do {
-        gotoxy(x, y + 1);
+        gotoxy(x + 6, y);
         cout << string(20, ' '); // Xoá dòng nhap cu
-        gotoxy(x, y + 1);
+        gotoxy(x + 6, y);
 
         ketQuaNhap = nhapChuoi(ho, 20);
 
@@ -262,20 +259,16 @@ bool nhapHoDocGia(string &ho) {
 }
 
 bool nhapTenDocGia(string &ten) {
-    const int x = 80, y = 7;
+    const int x = 80, y = 6;
     int ketQuaNhap = 0;
 
-    gotoxy(x, y);
-    cout << "Nhap Ten (toi da 10 ky tu): ";
-    
     gotoxy(x, 22);
     cout << "ESC: Huy Tinh Nang Nhap";
     
-    gotoxy(x, y + 1);
     do {
-        gotoxy(x, y + 1);
+        gotoxy(x + 6, y);
         cout << string(20, ' '); // Xoá dòng nhap cu
-        gotoxy(x, y + 1);
+        gotoxy(x + 6, y);
 
         ketQuaNhap = nhapChuoi(ten, 20);
 
@@ -296,20 +289,16 @@ bool nhapTenDocGia(string &ten) {
 }
 
 bool nhapPhaiDocGia(int &phai) {
-    const int x = 80, y = 9;
+    const int x = 80, y = 7;
     int ketQuaNhap = 0;
 
-    gotoxy(x, y);
-    cout << "Nhap Phai (0: Nam, 1: Nu): ";
-    
     gotoxy(x, 22);
     cout << "ESC: Huy Tinh Nang Nhap";
-    
-    gotoxy(x, y + 1);
+
     do {
-        gotoxy(x, y + 1);
-        cout << string(20, ' '); // Xoá dòng nhap cu
-        gotoxy(x, y + 1);
+        gotoxy(x + 6, y);
+        cout << string(5, ' '); // Xoá dòng nhap cu
+        gotoxy(x + 6, y);
 
         ketQuaNhap = nhapSo(phai, 0, 1, 1);
 
@@ -317,6 +306,38 @@ bool nhapPhaiDocGia(int &phai) {
             thongBao(0, "Khong duoc de trong!!!", x, 24);
 		} else if (ketQuaNhap == -2) {
 			thongBao(0, "So ko nam trong mang gia tri [0, 1]", x, 24);
+        } else {
+			clearBaoLoi(x, 24);
+		}
+
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(x, 0);
+            return false;
+        }
+
+    } while (ketQuaNhap != 1);
+
+    return true;
+}
+
+bool nhapMaDocGia(int &maDG) {
+    const int x = 80, y = 5;
+    int ketQuaNhap = 0;
+
+    gotoxy(x, 22);
+    cout << "ESC: Huy Tinh Nang Nhap";
+
+    do {
+        gotoxy(x + 6, y);
+        cout << string(8, ' '); // Xoá dòng nhap cu
+        gotoxy(x + 6, y);
+
+        ketQuaNhap = nhapSo(maDG, 1, MAX_DG , 4);
+
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", x, 24);
+		} else if (ketQuaNhap == -2) {
+			thongBao(0, "So ko nam trong mang gia tri [1, 1024]", x, 24);
         } else {
 			clearBaoLoi(x, 24);
 		}

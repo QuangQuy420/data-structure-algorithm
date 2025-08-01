@@ -7,4 +7,6 @@ void clreol(void);
 void clrscr(void);
 void SetColor(WORD color);
 void SetBGColor(WORD color);
+int MenuDong(char td[][50], int so_item);
+void Normal();
 

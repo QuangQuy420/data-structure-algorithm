@@ -15,5 +15,6 @@ void clearBaoLoi(int x, int y);
 bool nhapHoDocGia(string &ho);
 bool nhapTenDocGia(string &ten);
 bool nhapPhaiDocGia(int &phai);
+bool nhapMaDocGia(int &maDG);
 
 void clearTinhNang(int x, int y);

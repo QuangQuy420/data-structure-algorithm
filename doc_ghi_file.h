@@ -6,6 +6,8 @@ void saveDauSach(const char* fileName, ListDauSach &lds);
 
 void loadDocGia(const char* fileName, PTRDG &root);
 void saveDocGia(const char* fileName, PTRDG root);
-int layMaTheTuFile();
-void saveMaTheFile();
+
+void loadMaThe(const char* fileName, int arr[], int &n);
+void saveMaThe(const char* fileName, int arr[], int n);
+int layMaThe(int arr[], int &n);
 

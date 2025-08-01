@@ -10,9 +10,6 @@
 
 using namespace std;
 
-const char* ma_the_file = "D:\\CTDLGT\\Do_An\\ma_the.txt";
-int currentMaThe = -1;
-
 void saveDauSach(const char* fileName, ListDauSach &lds) {
     ofstream file(fileName);
     if (!file.is_open()) {
@@ -254,58 +251,47 @@ void loadDocGia(const char* fileName, PTRDG &root) {
     file.close();
 }
 
-int layMaTheTuFile() {
-    ifstream file(ma_the_file);
+void loadMaThe(const char* fileName, int arr[], int &n) {
+    ifstream file(fileName);
     if (!file.is_open()) {
         cout << "Khong mo duoc file maThe.txt!" << endl;
-        return -1;
-    }
-
-    string line;
-    if (getline(file, line)) {
-        if (!line.empty()) {
-            currentMaThe = stoi(line); // Luu vao bien toan cuc.
-            file.close();
-            return currentMaThe;
-        }
-    }
-
-    file.close();
-    cout << "File maThe.txt rong hoac loi!" << endl;
-    return -1;
-}
-
-void saveMaTheFile() {
-    ifstream file(ma_the_file);
-    if (!file.is_open()) {
-        cout << "Khong mo duoc file maThe.txt de cap nhat!" << endl;
         return;
     }
 
-    const int MAX = 1024;
-    int arr[MAX];
-    int count = 0;
     string line;
+    n = 0;
 
     while (getline(file, line)) {
         if (!line.empty()) {
-            arr[count++] = stoi(line);
+            arr[n++] = stoi(line);
         }
     }
+
     file.close();
+}
 
-    if (count > 0 && arr[0] == currentMaThe) {
-        for (int i = 1; i < count; i++) {
-            arr[i - 1] = arr[i];
-        }
-        count--;
+int layMaThe(int arr[], int &n) {
+    if (n == 0) return -1;
+
+    int ma = arr[0];
+    for (int i = 1; i < n; ++i) {
+        arr[i - 1] = arr[i];
+    }
+    --n;
+    return ma;
+}
+
+void saveMaThe(const char* fileName, int arr[], int n) {
+    ofstream outFile(fileName);
+    if (!outFile.is_open()) {
+        cout << "Khong mo duoc file de ghi ma the!" << endl;
+        return;
     }
 
-    ofstream outFile(ma_the_file);
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < n; ++i) {
         outFile << arr[i] << endl;
     }
-    outFile.close();
 
-    currentMaThe = -1;
+	cout << "Da ghi ma the vao file!" << endl;
+    outFile.close();
 }

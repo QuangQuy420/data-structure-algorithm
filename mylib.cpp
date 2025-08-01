@@ -1,9 +1,13 @@
+#include <iostream>
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
 #include "mylib.h"
+#include "globals.h"
+
+using namespace std;
 
 void gotoxy(short x, short y)
 {
@@ -69,5 +73,60 @@ void SetBGColor(WORD color)
 void clrscr()
 {
     system("cls");
+}
+
+void Normal() {
+    SetColor(15);
+    SetBGColor(0);
+}
+
+void HighLight() {
+    SetColor(15);
+    SetBGColor(1);
+}
+
+int MenuDong(char td[][50], int so_item) {
+    Normal();
+    system("cls");
+    int chon = 0;
+    for (int i = 0; i < so_item; i++) {
+        gotoxy(cot, dong + i);
+        cout << td[i];
+    }
+    HighLight();
+    gotoxy(cot, dong + chon);
+    cout << td[chon];
+
+    char kytu;
+    do {
+        kytu = getch();
+        if (kytu == 0) kytu = getch();
+        switch (kytu) {
+            case KEY_UP:
+                if (chon > 0) {
+                    Normal();
+                    gotoxy(cot, dong + chon);
+                    cout << td[chon];
+                    chon--;
+                    HighLight();
+                    gotoxy(cot, dong + chon);
+                    cout << td[chon];
+                }
+                break;
+            case KEY_DOWN:
+                if (chon < so_item - 1) {
+                    Normal();
+                    gotoxy(cot, dong + chon);
+                    cout << td[chon];
+                    chon++;
+                    HighLight();
+                    gotoxy(cot, dong + chon);
+                    cout << td[chon];
+                }
+                break;
+            case KEY_ENTER:
+                return chon + 1;
+        }
+    } while (true);
 }
 

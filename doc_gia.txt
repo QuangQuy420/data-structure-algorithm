@@ -1,51 +1,65 @@
-1010|Nguyen|An|0|1
+512|Nguyen|An|0|1
 S001,1,7,2024,0,0,0,0,Ke A1
 S002,5,7,2024,0,0,0,0,Ke B2
 #END_MT
-1005|Ly|Binh|1|1
+256|Ly|Binh|1|1
 S003,2,7,2024,0,0,0,0,Ke C3
 #END_MT
-1004|Le|Binh|1|1
+128|Dao|Huyen|1|0
+#END_MT
+64|Tran|Nhu|1|0
+#END_MT
+32|Quy|Quang|0|0
+#END_MT
+96|Phan|Quang|1|1
+#END_MT
+112|Huynh|Ngoc|0|1
+#END_MT
+192|Phan|Q|0|1
+#END_MT
+160|Tang Khanh|Hoi|1|1
+#END_MT
+176|Tran Quynh|Linh|1|1
+#END_MT
+384|Dao Tang K|Huyennnn|0|0
+#END_MT
+320|Nguyen Thi|Nhuong|0|0
+#END_MT
+288|Tran Nam|Cuong|0|0
+#END_MT
+448|a|ww|0|0
+#END_MT
+416|Phan Cong|Cuong|0|0
+#END_MT
+768|Le|Binh|1|1
 S004,2,7,2024,0,0,0,0,Ke C3
 #END_MT
-512|Dao|Huyen|1|0
-#END_MT
-256|Phan Quang|Quy|0|0
-#END_MT
-128|Dao Tang K|Huyennnn|0|0
-#END_MT
-64|Phan|Huyen|1|0
-#END_MT
-32|Tran|Nhu|1|0
-#END_MT
-96|Phan|Long|0|0
-#END_MT
-112|Phan|Q|0|1
-#END_MT
-288|Nguyen Thi|Nhuong|0|0
-#END_MT
-896|Phan|Quy|1|0
-#END_MT
-640|a|ww|0|0
+640|Phan|Huyen|1|0
 #END_MT
 576|Anh Quy|D18|0|0
 #END_MT
-832|He he 1|lashime|0|0
+576|He he 1|lashime|0|0
 #END_MT
-960|Quy|Quang|0|0
+704|Phan|Quy|1|0
 #END_MT
-928|K Nha|Thanh|0|0
+672|Ly|Nguyen|0|1
 #END_MT
-992|Huynh|Thi|1|0
+736|Tran Phi|Cuong|0|0
 #END_MT
-976|Tang Khanh|Hoi|1|1
+896|Phan Quang|Quy|0|0
 #END_MT
-1006|Tran|Binh|1|1
+832|Le|Lai|1|1
+#END_MT
+864|Tran|Binh|1|1
 S005,2,7,2024,0,0,0,0,Ke C3
 #END_MT
-1015|Tran Nam|Cuong|0|0
+960|Phan|Long|0|0
 #END_MT
-1012|Tran Phi|Cuong|0|0
+928|Huynh|Thi|1|0
 #END_MT
-1017|Phan Cong|Cuong|0|0
+944|Nguyen Thi Nhat|Anh|1|1
+#END_MT
+992|K Nha|Thanh|0|0
+#END_MT
+976|P|A|1|1
 #END_MT

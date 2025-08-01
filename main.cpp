@@ -6,30 +6,11 @@
 #include "dau_sach.h"
 #include "doc_gia.h"
 #include "helpers.h"
+#include "globals.h"
 
 #define MAXLIST 10000
 
 using namespace std;
-
-const char* dau_sach_file = "D:\\CTDLGT\\Do_An\\dau_sach.txt";
-const char* doc_gia_file = "D:\\CTDLGT\\Do_An\\doc_gia.txt";
-
-
-const int so_item = 3;
-const int dong = 5;
-const int cot = 20;
-const int KEY_UP = 72;
-const int KEY_DOWN = 80;
-const int KEY_LEFT = 75;
-const int KEY_RIGHT = 77;
-const int KEY_ENTER = 13;
-
-const int KEY_F1 = 59;
-const int KEY_F2 = 60;
-const int KEY_F3 = 61;
-const int KEY_F4 = 62;
-const int KEY_F5 = 63;
-const int KEY_ESC = 27;
 
 // Khai báo menu
 char menu[3][50] = {
@@ -38,67 +19,16 @@ char menu[3][50] = {
     "3. Thoat Chuong Trinh        ",
 };
 
-void Normal() {
-    SetColor(15);
-    SetBGColor(0);
-}
-
-void HighLight() {
-    SetColor(15);
-    SetBGColor(1);
-}
-
-int MenuDong(char td[][50], int so_item) {
-    Normal();
-    system("cls");
-    int chon = 0;
-    for (int i = 0; i < so_item; i++) {
-        gotoxy(cot, dong + i);
-        cout << td[i];
-    }
-    HighLight();
-    gotoxy(cot, dong + chon);
-    cout << td[chon];
-
-    char kytu;
-    do {
-        kytu = getch();
-        if (kytu == 0) kytu = getch();
-        switch (kytu) {
-            case KEY_UP:
-                if (chon > 0) {
-                    Normal();
-                    gotoxy(cot, dong + chon);
-                    cout << td[chon];
-                    chon--;
-                    HighLight();
-                    gotoxy(cot, dong + chon);
-                    cout << td[chon];
-                }
-                break;
-            case KEY_DOWN:
-                if (chon < so_item - 1) {
-                    Normal();
-                    gotoxy(cot, dong + chon);
-                    cout << td[chon];
-                    chon++;
-                    HighLight();
-                    gotoxy(cot, dong + chon);
-                    cout << td[chon];
-                }
-                break;
-            case KEY_ENTER:
-                return chon + 1;
-        }
-    } while (true);
-}
-
 int main() {
 	ListDauSach lds;
 	PTRDG root = NULL;
 	
+    int listMaThe[MAX_DG];
+    int soLuongMaThe = 0;
+	
 	loadDauSach(dau_sach_file, lds);
 	loadDocGia(doc_gia_file, root);
+	loadMaThe(ma_the_file, listMaThe, soLuongMaThe);
 
     int chon, key, trang;
     bool canReprint = true;
@@ -122,10 +52,12 @@ int main() {
 	            	key = getch();
 			        switch (key) {
 			            case KEY_F1:
-			            	xuLyNhapDocGia(root);
+			            	xuLyNhapDocGia(root, listMaThe, soLuongMaThe);
 			            	canReprint = true;
 			                break;
 			            case KEY_F2:
+			            	xuLyCapNhatDocGia(root);
+			            	canReprint = true;
 			                break;
 			            case KEY_F3:
 			                break;
@@ -158,6 +90,7 @@ int main() {
             case so_item: {
             	saveDauSach(dau_sach_file, lds);
             	saveDocGia(doc_gia_file, root);
+            	saveMaThe(ma_the_file, listMaThe ,soLuongMaThe);
     			return 0;
 			}
         }
