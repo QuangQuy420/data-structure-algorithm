@@ -9,13 +9,13 @@ S003,2,7,2024,0,0,0,0,Ke C3
 #END_MT
 64|Tran|Nhu|1|0
 #END_MT
-32|Quy|Quang|0|0
+32|Quy Ok|Quang|0|0
 #END_MT
 96|Phan|Quang|1|1
 #END_MT
 112|Huynh|Ngoc|0|1
 #END_MT
-192|Phan|Q|0|1
+192|Phan|Ngoc Nguyen|1|1
 #END_MT
 160|Tang Khanh|Hoi|1|1
 #END_MT
@@ -27,7 +27,9 @@ S003,2,7,2024,0,0,0,0,Ke C3
 #END_MT
 288|Tran Nam|Cuong|0|0
 #END_MT
-448|a|ww|0|0
+352|Trinh Xuan|Hong|1|1
+#END_MT
+448|Pham|Quynh Anh|1|0
 #END_MT
 416|Phan Cong|Cuong|0|0
 #END_MT
@@ -36,13 +38,13 @@ S004,2,7,2024,0,0,0,0,Ke C3
 #END_MT
 640|Phan|Huyen|1|0
 #END_MT
-576|Anh Quy|D18|0|0
-#END_MT
 576|He he 1|lashime|0|0
 #END_MT
 704|Phan|Quy|1|0
 #END_MT
 672|Ly|Nguyen|0|1
+#END_MT
+688|Trinh|Tran|1|1
 #END_MT
 736|Tran Phi|Cuong|0|0
 #END_MT
@@ -60,6 +62,4 @@ S005,2,7,2024,0,0,0,0,Ke C3
 944|Nguyen Thi Nhat|Anh|1|1
 #END_MT
 992|K Nha|Thanh|0|0
-#END_MT
-976|P|A|1|1
 #END_MT

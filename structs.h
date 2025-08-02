@@ -10,7 +10,7 @@ using namespace std;
 struct Sach
 {
     string maSach;
-    int trangThai; // 0: cho muon duoc, 1: da muon, 2: da thanh ly
+    int trangThai = -1; // 0: cho muon duoc, 1: da muon, 2: da thanh ly
     string viTri;
 };
 
@@ -28,11 +28,11 @@ struct DauSach
 {
     string ISBN;
     string tenSach;
-    int soTrang;
+    int soTrang = -1;
     string tacGia;
-    int namXuatBan;
+    int namXuatBan = -1;
     string theLoai;
-    int soLuotMuon; // So luot muon cua sach
+    int soLuotMuon = -1; // So luot muon cua sach
     int soLuongSach = 0;
     PTRSach ptrSach = NULL; // Con tro den danh sach cac sach cung dau sach nay
 };
@@ -54,7 +54,7 @@ struct MuonTra
     string maSach;
     Date ngayMuon;
     Date ngayTra;
-    int trangThai;     // 0: sach dang muon (chua tra), 1: da tra, 2: mat sach
+    int trangThai = -1;     // 0: sach dang muon (chua tra), 1: da tra, 2: mat sach
     string viTri; // ????
 };
 
@@ -70,11 +70,11 @@ typedef nodeMT *PTRMT;
 
 struct DocGia
 {
-    int maThe; // So nguyen ngau nhien tu dong
+    int maThe = -1; // So nguyen ngau nhien tu dong
     string ho;
     string ten;
-    int phai;
-    int trangThai; // 0: da khoa, 1: dang hoat dong
+    int phai = -1;
+    int trangThai = -1; // 0: da khoa, 1: dang hoat dong
     PTRMT ptrMT = NULL; // Con tro den danh sach muon tra cua doc gia
 };
 

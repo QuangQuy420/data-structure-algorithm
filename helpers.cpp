@@ -46,7 +46,7 @@ string chuanHoaChuoi(string str) {
 // return 0: ESC, Huy nhap
 // return 1: Nhap chuoi thanh cong
 int nhapChuoi(string &s, int maxLen) {
-    s.clear();
+//    s.clear();
     char ch;
 
     while (true) {
@@ -84,7 +84,7 @@ int nhapChuoi(string &s, int maxLen) {
 // return 0: ESC, Huy nhap
 // return 1: Nhap chuoi thanh cong
 int nhapSo(int &so, int min, int max, int maxLen) {
-    string s;
+    string s = (so >= 0) ? to_string(so) : "";
     char ch;
 
     while (true) {
@@ -207,10 +207,17 @@ void clearTinhNang(int x, int y) {
     }
 }
 
+// type 2: Info
 // type 1: Success
 // type 0: Error
 void thongBao(int type, string message, int x, int y) {
-	string typeTB = type == 0 ? "- Error -" : " Success ";
+	string typeTB;
+	switch(type) {
+		case 0: typeTB = "- Error -"; break;
+		case 1: typeTB = " Success "; break;
+		case 2: typeTB = "- Info --"; break;
+	}
+
     gotoxy(x, y);
     cout << "--"<< typeTB <<"--------------------------------";
     gotoxy(x, y + 1);
@@ -228,17 +235,16 @@ void clearBaoLoi(int x, int y) {
     }
 }
 
-bool nhapHoDocGia(string &ho) {
-    const int x = 80, y = 5;
+bool nhapHoDocGia(string &ho, int x, int y) {
     int ketQuaNhap = 0;
+    int lenHo;
     
     gotoxy(x, 22);
     cout << "ESC: Huy Tinh Nang Nhap";
-    
+
     do {
-        gotoxy(x + 6, y);
-        cout << string(20, ' '); // Xoá dòng nhap cu
-        gotoxy(x + 6, y);
+    	lenHo = ho.length();
+        gotoxy(x + 6 + lenHo, y);
 
         ketQuaNhap = nhapChuoi(ho, 20);
 
@@ -258,17 +264,16 @@ bool nhapHoDocGia(string &ho) {
     return true;
 }
 
-bool nhapTenDocGia(string &ten) {
-    const int x = 80, y = 6;
+bool nhapTenDocGia(string &ten, int x, int y) {
     int ketQuaNhap = 0;
+    int lenTen;
 
     gotoxy(x, 22);
     cout << "ESC: Huy Tinh Nang Nhap";
     
     do {
-        gotoxy(x + 6, y);
-        cout << string(20, ' '); // Xoá dòng nhap cu
-        gotoxy(x + 6, y);
+    	lenTen = ten.length();
+        gotoxy(x + 6 + lenTen, y);
 
         ketQuaNhap = nhapChuoi(ten, 20);
 
@@ -288,17 +293,17 @@ bool nhapTenDocGia(string &ten) {
     return true;
 }
 
-bool nhapPhaiDocGia(int &phai) {
-    const int x = 80, y = 7;
+bool nhapPhaiDocGia(int &phai, int x, int y) {
     int ketQuaNhap = 0;
+    int lenPhai;
 
     gotoxy(x, 22);
     cout << "ESC: Huy Tinh Nang Nhap";
 
     do {
-        gotoxy(x + 6, y);
-        cout << string(5, ' '); // Xoá dòng nhap cu
-        gotoxy(x + 6, y);
+    	lenPhai = (phai >= 0) ? to_string(phai).length() : 0;
+    	
+        gotoxy(x + 6 + lenPhai, y);
 
         ketQuaNhap = nhapSo(phai, 0, 1, 1);
 
@@ -320,8 +325,7 @@ bool nhapPhaiDocGia(int &phai) {
     return true;
 }
 
-bool nhapMaDocGia(int &maDG) {
-    const int x = 80, y = 5;
+bool nhapMaDocGia(int &maDG, int x, int y) {
     int ketQuaNhap = 0;
 
     gotoxy(x, 22);
@@ -348,6 +352,41 @@ bool nhapMaDocGia(int &maDG) {
         }
 
     } while (ketQuaNhap != 1);
+
+    return true;
+}
+
+bool nhapXacNhan(string &xacNhan, int x, int y) {
+	int ketQuaNhap = 0;
+	int lenXacNhan;
+	bool isHopLe;
+
+    gotoxy(x, 22);
+    cout << "ESC: Huy Tinh Nang Nhap";
+    
+    do {
+    	lenXacNhan = xacNhan.length();
+        gotoxy(x + 20 + lenXacNhan, y);
+
+        ketQuaNhap = nhapChuoi(xacNhan, 1);
+        isHopLe = (xacNhan == "Y" || xacNhan == "N");
+
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", x, 24);
+        } else {
+			clearBaoLoi(x, 24);
+		}
+
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(x, 0);
+            return false;
+        }
+
+        if (ketQuaNhap == 1 && !isHopLe) {
+			thongBao(0, "Chi cho phep nhap 'Y' or 'N'", x, 24);
+		}
+
+    } while (ketQuaNhap != 1 || !isHopLe);
 
     return true;
 }

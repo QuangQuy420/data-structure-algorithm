@@ -40,30 +40,40 @@ int main() {
             case 1: { // The doc gia
             	trang = 1;
             	int soTrang = tinhSoTrang(root);
+            	int typeInDG = 0; // 0: In theo ten; 1: In theo ma
             	inKhungQuanLyDocGia();
 
             	do {
             		if (canReprint) {
             			soTrang = tinhSoTrang(root);
-						xuLyInDanhSachDocGia(root, trang, soTrang);
+            			if(trang > soTrang) trang = soTrang;
+            			xuLyInDanhSachDocGia(root, trang, soTrang, typeInDG);
 						canReprint = false;
 					}
 
 	            	key = getch();
 			        switch (key) {
-			            case KEY_F1:
+			            case KEY_F1: // Them Doc Gia
 			            	xuLyNhapDocGia(root, listMaThe, soLuongMaThe);
 			            	canReprint = true;
 			                break;
-			            case KEY_F2:
+			            case KEY_F2: // Update Doc Gia
 			            	xuLyCapNhatDocGia(root);
 			            	canReprint = true;
 			                break;
-			            case KEY_F3:
+			            case KEY_F3: // Delete Doc Gia
+			            	xuLyXoaDocGia(root);
+			            	canReprint = true;
 			                break;
-			            case KEY_F4:
+			            case KEY_F4: // In Theo Ten
+			            	trang = 1;
+							typeInDG = 0;
+							canReprint = true;
 			                break;
-			            case KEY_F5:
+			            case KEY_F5: // In Theo Ma
+			            	trang = 1;
+			            	typeInDG = 1;
+			            	canReprint = true;
 			                break;
 			            case KEY_LEFT:
 			            	if(trang > 1) {
