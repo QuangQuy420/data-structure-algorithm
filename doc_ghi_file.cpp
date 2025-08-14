@@ -25,11 +25,11 @@ void saveDauSach(const char* fileName, ListDauSach &lds) {
 
         // Ghi dòng thông tin d?u sách
         file << ds.ISBN << "|"
+       		 << ds.theLoai << "|"
              << ds.tenSach << "|"
-             << ds.soTrang << "|"
              << ds.tacGia << "|"
+             << ds.soTrang << "|"
              << ds.namXuatBan << "|"
-             << ds.theLoai << "|"
              << ds.soLuotMuon << "|"
              << ds.soLuongSach << endl;
 
@@ -75,17 +75,18 @@ void loadDauSach(const char* fileName, ListDauSach &lds) {
         string token;
 
         getline(ss, ds.ISBN, '|');
+        
+        getline(ss, token, '|');
+        ds.theLoai = token.empty() ? 0 : stoi(token);
+        
         getline(ss, ds.tenSach, '|');
+        getline(ss, ds.tacGia, '|');
 
         getline(ss, token, '|');
         ds.soTrang = token.empty() ? 0 : stoi(token);
 
-        getline(ss, ds.tacGia, '|');
-
         getline(ss, token, '|');
         ds.namXuatBan = token.empty() ? 0 : stoi(token);
-
-        getline(ss, ds.theLoai, '|');
 
         getline(ss, token, '|');
         ds.soLuotMuon = token.empty() ? 0 : stoi(token);

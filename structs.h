@@ -27,13 +27,13 @@ typedef nodeSach *PTRSach;
 struct DauSach
 {
     string ISBN;
+    int theLoai = -1;
     string tenSach;
-    int soTrang = -1;
     string tacGia;
+    int soTrang = -1;
     int namXuatBan = -1;
-    string theLoai;
     int soLuotMuon = -1; // So luot muon cua sach
-    int soLuongSach = 0;
+    int soLuongSach = -1;
     PTRSach ptrSach = NULL; // Con tro den danh sach cac sach cung dau sach nay
 };
 

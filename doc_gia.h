@@ -18,3 +18,8 @@ void xuLyXoaDocGia(PTRDG &root);
 // In doc gia theo ten or theo ma
 void xuLyInDanhSachDocGia(PTRDG root, int trang, int soTrang, int typeInDG);
 
+// Muon sach
+void xuLyMuonSach(PTRDG root);
+
+// Tra sach
+void xuLyTraSach(PTRDG root);

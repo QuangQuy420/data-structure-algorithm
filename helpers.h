@@ -1,13 +1,23 @@
 #pragma once
 
 string chuanHoaChuoi(string str);
-int nhapChuoi(string &s, int maxLen);
+int nhapChuoi(string &s, int maxLen, bool isUpper = false);
 int nhapSo(int &so, int min, int max, int maxLen);
-//bool nhapMaISBN(ListDauSach &lds, string &s, int maxLen);
-//bool chonTheLoai(string &theLoai);
-string chuanHoaInHoa(string s);
+int tinhSoTrang(int soItem);
 
 // Dau Sach
+bool nhapISBN(ListDauSach &lds, string &ISBN, int x, int y);
+bool nhapTheLoaiDS(int &theLoai, int x, int y);
+bool nhapTenSach(string &tenSach, int x, int y);
+bool nhapTenTacGia(string &tacGia, int x, int y);
+bool nhapSoTrang(int &soTrang, int x, int y);
+bool nhapNamXuatBan(int &namXuatBan, int x, int y);
+bool nhapSoLuongSach(int &soLuongSach, int x, int y);
+bool nhapViTri(string &viTri, int x, int y);
+
+// Tim Sach
+int nhapTenSachTimKiem(string &tenSach, int &trang, int soTrang, int x, int y);
+int nhapChuoiTimKiem(string &s, int &trang, int soTrang, int maxLen);
 
 // Doc Gia
 void thongBao(int type, string message, int x, int y);

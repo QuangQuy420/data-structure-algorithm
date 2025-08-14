@@ -1,9 +1,9 @@
-512|Nguyen|An|0|1
+512|Nguyen Thu|Anh|1|1
 S001,1,7,2024,0,0,0,0,Ke A1
 S002,5,7,2024,0,0,0,0,Ke B2
+S003,5,7,2024,0,0,0,0,Ke B3
 #END_MT
 256|Ly|Binh|1|1
-S003,2,7,2024,0,0,0,0,Ke C3
 #END_MT
 128|Dao|Huyen|1|0
 #END_MT
@@ -37,8 +37,6 @@ S003,2,7,2024,0,0,0,0,Ke C3
 S004,2,7,2024,0,0,0,0,Ke C3
 #END_MT
 640|Phan|Huyen|1|0
-#END_MT
-576|He he 1|lashime|0|0
 #END_MT
 704|Phan|Quy|1|0
 #END_MT

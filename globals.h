@@ -16,6 +16,8 @@ constexpr int KEY_F2 = 60;
 constexpr int KEY_F3 = 61;
 constexpr int KEY_F4 = 62;
 constexpr int KEY_F5 = 63;
+constexpr int KEY_F6 = 64;
+constexpr int KEY_F7 = 65;
 constexpr int KEY_ESC = 27;
 
 constexpr int MAX_DG = 1024;
