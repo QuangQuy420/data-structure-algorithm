@@ -66,7 +66,7 @@ void _clearVungDanhSachDauSach() {
 	}
 }
 
-string _layTheLoai(int theLoai) {
+string layTheLoai(int theLoai) {
 	switch (theLoai) {
 		case 1: return "Khoa Hoc";
 		case 2: return "Ky Nang";
@@ -79,7 +79,7 @@ void _inDauSachTheoTheLoai(ListDauSach &lds, int trang, int y) {
     string theLoai;
 
 	for (int i = 0; i < lds.n; i++) {
-		theLoai = _layTheLoai(lds.nodes[i].theLoai);
+		theLoai = layTheLoai(lds.nodes[i].theLoai);
 
 		if(i >= (trang - 1)*ITEM_MOI_TRANG && i < trang*ITEM_MOI_TRANG) {
 			gotoxy(0, y);
@@ -250,7 +250,8 @@ void _timSachTheoTen(ListDauSach &lds, string ten, int arr[], int &count) {
     count = 0;
     for (int i = 0; i < lds.n; i++) {
         string tenSachLower = _toLowerCase(lds.nodes[i].tenSach);
-        if (tenSachLower.find(tenTimKiemLower) != string::npos) {
+        
+        if (tenSachLower.find(tenTimKiemLower) != string::npos) { // Tim thay chuoi con trong ten sach
             arr[count++] = i;
         }
     }
@@ -260,7 +261,7 @@ void _inDanhSachTimThay(ListDauSach &lds, int arr[], int trang, int count, int y
 	_clearVungDanhSachDauSach();
 	
     for (int i = 0; i < count; i++) {
-        string theLoai = _layTheLoai(lds.nodes[arr[i]].theLoai);
+        string theLoai = layTheLoai(lds.nodes[arr[i]].theLoai);
 
         if (i >= (trang - 1) * ITEM_MOI_TRANG && i < trang * ITEM_MOI_TRANG) {
             gotoxy(0, y);
@@ -304,6 +305,7 @@ void xuLyTimSach(ListDauSach &lds) {
     	int ketQua = nhapTenSachTimKiem(ten, trang, soTrang, x, y + 2);
         if (ketQua == 0) return;
         
+        // De trong enter, in toan bo danh sach
         if (ketQua == -1) {
         	soTrang = tinhSoTrang(lds.n);
         	xuLyInDanhSachDauSach(lds, trang, soTrang);

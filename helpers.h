@@ -18,6 +18,7 @@ bool nhapViTri(string &viTri, int x, int y);
 // Tim Sach
 int nhapTenSachTimKiem(string &tenSach, int &trang, int soTrang, int x, int y);
 int nhapChuoiTimKiem(string &s, int &trang, int soTrang, int maxLen);
+int kiemTraTonTaiISBN(ListDauSach &lds, string ISBN);
 
 // Doc Gia
 void thongBao(int type, string message, int x, int y);
@@ -28,4 +29,13 @@ bool nhapPhaiDocGia(int &phai, int x, int y);
 bool nhapMaDocGia(int &maDG, int x, int y);
 bool nhapXacNhan(string &xacNhan, int x, int y);
 
-void clearTinhNang(int x, int y);
+void clearTinhNang(int x, int y, int dong = 30, int khoangTrang = 45);
+
+//Muon Tra
+bool nhapMaDG(int &maDG, int x, int y);
+bool nhapISBNMuonSach(string &ISBN, int x, int y);
+bool nhapMaSachCon(int &maSachMuon, int x, int y);
+bool nhapXacNhanMT(string &xacNhan, int x, int y);
+
+bool nhapMaSachTra(string &maSachTra, int x, int y);
+

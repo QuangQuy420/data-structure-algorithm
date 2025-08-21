@@ -4,7 +4,8 @@
 void insertLastMT(PTRMT &first, MuonTra mt);
 void insertDG(PTRDG &root, DocGia dg);
 void inKhungQuanLyDocGia();
-int tinhSoTrang(PTRDG root);
+//int tinhSoTrang(PTRDG root);
+DocGia* timDocGiaTheoMa(PTRDG root, int maDG);
 
 // Them doc gia
 void xuLyNhapDocGia(PTRDG &root, int listMaThe[], int &soLuongMaThe);
@@ -17,9 +18,5 @@ void xuLyXoaDocGia(PTRDG &root);
 
 // In doc gia theo ten or theo ma
 void xuLyInDanhSachDocGia(PTRDG root, int trang, int soTrang, int typeInDG);
+int demDocGia(PTRDG root);
 
-// Muon sach
-void xuLyMuonSach(PTRDG root);
-
-// Tra sach
-void xuLyTraSach(PTRDG root);

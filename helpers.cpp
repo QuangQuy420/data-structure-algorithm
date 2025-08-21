@@ -43,6 +43,7 @@ string chuanHoaChuoi(string str) {
 }
 
 
+// return -1: Chuoi rong, in toan bo danh sach.
 // return 0: ESC, Huy nhap
 // return 1: Nhap chuoi thanh cong, Hien thi chi tiet sach
 int nhapChuoiTimKiem(string &s, int &trang, int soTrang, int maxLen) {
@@ -183,10 +184,10 @@ string chuanHoaInHoa(string s) {
     return s;
 }
 
-void clearTinhNang(int x, int y) {
-	for (int i = 0; i < 30; i++) {
+void clearTinhNang(int x, int y, int dong = 30, int khoangTrang = 45) {
+	for (int i = 0; i < dong; i++) {
         gotoxy(x, y + i);
-        cout << string(45, ' ');
+        cout << string(khoangTrang, ' ');
     }
 }
 
@@ -345,7 +346,7 @@ bool nhapMaDocGia(int &maDG, int x, int y) {
 
 // ===== DAU SACH =====
 
-int _kiemTraTonTaiISBN(ListDauSach &lds, string ISBN) {
+int kiemTraTonTaiISBN(ListDauSach &lds, string ISBN) {
 	for (int i = 0; i < lds.n; i++) {
 		if (lds.nodes[i].ISBN == ISBN) {
 			return i;
@@ -368,7 +369,7 @@ bool nhapISBN(ListDauSach &lds, string &ISBN, int x, int y) {
 
         ketQuaNhap = nhapChuoi(ISBN, 4, true);
         
-        checkISBN = _kiemTraTonTaiISBN(lds, ISBN);
+        checkISBN = kiemTraTonTaiISBN(lds, ISBN);
 		
         if (ketQuaNhap == -1) {
             thongBao(0, "Khong duoc de trong!!!", x, 24);
@@ -671,5 +672,164 @@ int nhapTenSachTimKiem(string &tenSach, int &trang, int soTrang, int x, int y) {
 
 int tinhSoTrang(int soItem) {
 	return soItem/ITEM_MOI_TRANG + (soItem % ITEM_MOI_TRANG != 0 ? 1 : 0);
+}
+
+// ========================= Muon Tra ===============================
+bool nhapMaDG(int &maDG, int x, int y) {
+    int ketQuaNhap = 0;
+    int len;
+
+    gotoxy(0, y+2);
+    cout << "ESC: Huy Tinh Nang Nhap";
+
+    do {
+    	len = (maDG >= 0) ? to_string(maDG).length() : 0;
+    	
+        gotoxy(x + 12 + len, y);
+
+        ketQuaNhap = nhapSo(maDG, 1, 1024, 4);
+
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", 0, 35);
+		} else if (ketQuaNhap == -2) {
+			thongBao(0, "So ko nam trong mang gia tri [1, 1024]", 0, 35);
+        } else {
+			clearBaoLoi(0, 35);
+		}
+
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(0, 2, 38, 200);
+            return false;
+        }
+
+    } while (ketQuaNhap != 1);
+
+    return true;
+}
+
+bool nhapISBNMuonSach(string &ISBN, int x, int y) {
+    int ketQuaNhap = 0;
+    int len;
+    
+    gotoxy(0, y+1);
+    cout << "ESC: Huy Tinh Nang Nhap";
+
+    do {
+    	len = ISBN.length();
+        gotoxy(x + 12 + len, y);
+
+        ketQuaNhap = nhapChuoi(ISBN, 4, true);
+		
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", 0, 35);
+        } else {
+			clearBaoLoi(0, 35);
+		}
+		
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(0, 2, 38, 200);
+            return false;
+        }
+
+    } while (ketQuaNhap != 1);
+
+    return true;
+}
+
+bool nhapMaSachCon(int &maSachMuon, int x, int y) {
+    int ketQuaNhap = 0;
+    int len;
+
+    gotoxy(0, y+2);
+    cout << "ESC: Huy Tinh Nang Nhap";
+
+    do {
+    	len = (maSachMuon >= 0) ? to_string(maSachMuon).length() : 0;
+    	
+        gotoxy(x + len, y);
+
+        ketQuaNhap = nhapSo(maSachMuon, 1, 999, 3);
+
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", 0, 35);
+		} else if (ketQuaNhap == -2) {
+			thongBao(0, "Ma khong nam trong mang gia tri [1, 999]", 0, 35);
+        } else {
+			clearBaoLoi(0, 35);
+		}
+
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(0, 2, 38, 200);
+            return false;
+        }
+
+    } while (ketQuaNhap != 1);
+
+    return true;
+}
+
+
+bool nhapXacNhanMT(string &xacNhan, int x, int y) {
+	int ketQuaNhap = 0;
+	int lenXacNhan;
+	bool isHopLe;
+
+    gotoxy(x, y+1);
+    cout << "ESC: Huy Tinh Nang Nhap";
+    
+    do {
+    	lenXacNhan = xacNhan.length();
+        gotoxy(x + 20 + lenXacNhan, y);
+
+        ketQuaNhap = nhapChuoi(xacNhan, 1);
+        isHopLe = (xacNhan == "Y" || xacNhan == "N");
+
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", x, y+3);
+        } else {
+			clearBaoLoi(x, y+3);
+		}
+
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(0, 2, 38, 200);
+            return false;
+        }
+
+        if (ketQuaNhap == 1 && !isHopLe) {
+			thongBao(0, "Chi cho phep nhap 'Y' or 'N'", x, y+3);
+		}
+
+    } while (ketQuaNhap != 1 || !isHopLe);
+
+    return true;
+}
+
+bool nhapMaSachTra(string &maSachTra, int x, int y) {
+	int ketQuaNhap = 0;
+    int len;
+    
+    gotoxy(0, y+1);
+    cout << "ESC: Huy Tinh Nang Nhap";
+
+    do {
+    	len = maSachTra.length();
+        gotoxy(x + 9 + len, y);
+
+        ketQuaNhap = nhapChuoi(maSachTra, 8, true);
+		
+        if (ketQuaNhap == -1) {
+            thongBao(0, "Khong duoc de trong!!!", 0, 35);
+        } else {
+			clearBaoLoi(0, 35);
+		}
+		
+        if (ketQuaNhap == 0) {
+        	clearTinhNang(0, 2, 38, 200);
+            return false;
+        }
+
+    } while (ketQuaNhap != 1);
+
+    return true;
 }
 

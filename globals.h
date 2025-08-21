@@ -2,7 +2,7 @@ constexpr const char* dau_sach_file = "D:\\CTDLGT\\Do_An\\dau_sach.txt";
 constexpr const char* doc_gia_file = "D:\\CTDLGT\\Do_An\\doc_gia.txt";
 constexpr const char* ma_the_file = "D:\\CTDLGT\\Do_An\\ma_the.txt";
 
-constexpr int so_item = 3;
+constexpr int so_item = 5;
 constexpr int dong = 5;
 constexpr int cot = 20;
 

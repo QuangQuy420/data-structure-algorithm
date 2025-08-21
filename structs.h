@@ -87,3 +87,9 @@ struct nodeDG
 
 typedef nodeDG *PTRDG;
 
+// Su dung cho sap xep qua han.
+struct DGQuaHan {
+    DocGia* dg;
+    int soNgayQuaHan;
+};
+

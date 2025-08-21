@@ -7,16 +7,20 @@
 #include "doc_gia.h"
 #include "helpers.h"
 #include "globals.h"
+#include "muon_tra.h"
+#include "thong_ke.h"
 
 #define MAXLIST 10000
 
 using namespace std;
 
 // Khai báo menu
-char menu[3][50] = {
+char menu[5][50] = {
     "1. Quan Ly The Doc Gia       ",
     "2. Quan Ly Dau Sach          ",
-    "3. Thoat Chuong Trinh        ",
+    "3. Muon - Tra Sach           ",
+    "4. Thong Ke                  ",
+    "5. Thoat Chuong Trinh        ",
 };
 
 int main() {
@@ -25,18 +29,49 @@ int main() {
 	
     int listMaThe[MAX_DG];
     int soLuongMaThe = 0;
+    loadMaThe(ma_the_file, listMaThe, soLuongMaThe);
 	
 	loadDauSach(dau_sach_file, lds);
 	loadDocGia(doc_gia_file, root);
-	loadMaThe(ma_the_file, listMaThe, soLuongMaThe);
 
     int chon, key, trang;
     int canReprint = 1;
     do {
-        chon = MenuDong(menu, 3);
+        chon = MenuDong(menu, 5);
         Normal();
         system("cls");
         switch (chon) {
+        	case 4: { // Thong Ke
+				inKhungThongKe();
+				do {
+        			key = getch();
+			        switch (key) {
+						case KEY_F1:
+							xuLyLietKeDocGiaQuaHan(root);
+							break;
+						case KEY_F2:
+							xuLyLietKeSachPhoBien(lds);
+							break;
+					}
+				} while (key != KEY_ESC);
+				break;
+			}
+        	case 3: { // Muon - Tra sach
+        		inKhungQuanLyMuonTra();
+        		
+        		do {
+        			key = getch();
+			        switch (key) {
+						case KEY_F1:
+							xuLyMuonSach(lds, root);
+							break;
+						case KEY_F2:
+							xuLyTraSach(lds, root);
+							break;
+					}
+				} while (key != KEY_ESC);
+				break;
+			}
         	case 2: { // Dau sach
         		trang = 1;
         		string tenTimKiem;
@@ -80,14 +115,14 @@ int main() {
             }
             case 1: { // The doc gia
             	trang = 1;
-            	int soTrang = tinhSoTrang(root);
-            	int typeInDG = 0; // 0: In theo ten; 1: In theo ma
+            	int soDocGia, soTrang, typeInDG = 0; // 0: In theo ten; 1: In theo ma
             	inKhungQuanLyDocGia();
 
             	do {
             		if (canReprint == 1) {
-            			soTrang = tinhSoTrang(root);
-            			if(trang > soTrang) trang = soTrang;
+            			soDocGia = demDocGia(root);
+            			soTrang = tinhSoTrang(soDocGia);
+            			if(trang > soTrang) trang = soTrang; // trang 2 co 1 phan tu, sau khi xoa thi tinh toan lai trang.
             			xuLyInDanhSachDocGia(root, trang, soTrang, typeInDG);
 						canReprint = 0;
 					}
@@ -116,14 +151,6 @@ int main() {
 			            	typeInDG = 1;
 			            	canReprint = 1;
 			                break;
-			            case KEY_F6: // Muon Sach
-			            	xuLyMuonSach(root);
-			            	canReprint = 1;
-			                break;
-			            case KEY_F7: // Tra Sach
-			            	xuLyTraSach(root);
-			            	canReprint = 1;
-			                break;
 			            case KEY_LEFT:
 			            	if(trang > 1) {
 								trang--;
@@ -142,11 +169,10 @@ int main() {
 				} while (key != KEY_ESC);
             	break;
             }
-
             case so_item: {
             	saveDauSach(dau_sach_file, lds);
             	saveDocGia(doc_gia_file, root);
-            	saveMaThe(ma_the_file, listMaThe ,soLuongMaThe);
+            	saveMaThe(ma_the_file, listMaThe, soLuongMaThe);
     			return 0;
 			}
         }

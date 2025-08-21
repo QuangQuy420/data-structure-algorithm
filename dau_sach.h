@@ -15,3 +15,4 @@ void xuLyInDanhSachDauSach(ListDauSach &lds, int trang, int soTrang);
 
 // ========== Tim Sach ==========
 void xuLyTimSach(ListDauSach &lds);
+string layTheLoai(int theLoai);
